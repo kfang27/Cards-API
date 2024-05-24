@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles/index.css">
+  <title>Draw 5 Cards</title>
+</head>
+<body>
+  <div class="heading">
+    <h1>Come and test your luck</h1>
+  </div>
+
+  <div class="buttons_container">
+    <button id="drawButton">Draw 5</button>
+    <button id="newDeckButton">New Deck</button>
+  </div>
+
+  <div class="container">
+
+    <div class="cards">
+      <% cards.forEach(card => { %>
+        <img src="<%= card.image %>" alt="<%= card.value %> of <%= card.suit %>">
+      <% }); %>
+    </div>
+  </div>
+</body>
+</html>
