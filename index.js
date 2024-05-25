@@ -1,15 +1,14 @@
 import express from "express";
-import bodyParser from "body-parser";
 import axios from "axios";
 
 const app = express();
 const port = 3000;
 
+// Got the message "Error: No default engine was specified and no extension was provided.", so had to include this
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.redirect('/shuffle');
@@ -31,12 +30,26 @@ app.get('/draw_display/:deck_id', async (req, res) => {
   const count = 5;
   try {
     const response = await axios.get(`https://deckofcardsapi.com/api/deck/${deck_id}/draw/?count=${count}`);
-    res.render('index', { cards: response.data.cards });
+    const remaining = response.data.remaining;
+    
+    // If the remaining amount of cards is less than 5, redirect back to the shuffle endpoint to use a new deck of cards
+    if (remaining < 5) {
+      res.redirect('/shuffle');
+      return;
+    }
+    res.render('index', { cards: response.data.cards, remaining });
   } catch (error) {
     res.status(500).send(error.toString());
   }
 });
 
+app.get('/new_deck', async (req, res) => {
+  try {
+    res.redirect('/shuffle'); // Redirect to shuffle endpoint to get a new deck
+  } catch (error) {
+    res.status(500).send(error.toString());
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`);
