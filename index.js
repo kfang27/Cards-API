@@ -45,7 +45,8 @@ app.get('/draw_display/:deck_id', async (req, res) => {
 
 app.get('/new_deck', async (req, res) => {
   try {
-    res.redirect('/shuffle'); // Redirect to shuffle endpoint to get a new deck
+    // Redirect to shuffle endpoint to get a new deck
+    res.redirect('/shuffle');
   } catch (error) {
     res.status(500).send(error.toString());
   }

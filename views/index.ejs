@@ -16,7 +16,7 @@
   </div>
   
   <div class="buttons_container">
-    <button id="drawButton">Draw 5</button>
+    <button id="drawButton" type="submit" onclick="refreshPage()">Draw 5</button>
     <a href="/new_deck"><button id="newDeckButton">New Deck</button></a>
   </div>
 
@@ -29,6 +29,12 @@
     </div>
   </div>
 
-  <script src="/scripts/index.js"></script>
+  <script>
+
+    function refreshPage(){
+      window.location.reload();
+    } 
+
+  </script>
 </body>
 </html>
